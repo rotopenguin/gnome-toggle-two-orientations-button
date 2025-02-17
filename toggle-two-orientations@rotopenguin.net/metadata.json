@@ -1,0 +1,8 @@
+{
+  "name": "Toggle between two display orientations",
+  "description": "Adds a button to toggle between Portrait and Landscape orientations. Inspired by https://github.com/shyzus/gnome-shell-extension-screen-autorotate",
+  "uuid": "toggle-two-orientations@rotopenguin.net",
+  "shell-version": [
+    "47"
+  ]
+}
