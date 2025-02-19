@@ -83,3 +83,16 @@ export function rotate_to(transform) {
     console.error(err);
   })
 }
+
+export function whats_our_current_transform() {
+  this.get_state().then(state => {
+    let target_monitor = state.builtin_monitor;
+    if (target_monitor === undefined) {
+      target_monitor = state.monitors[0]
+    }
+    let logical_monitor = state.get_logical_monitor_for(target_monitor.connector);
+    return logical_monitor.transform; //HAHA DOES NOT FUCKING WORK. NOTHING EVER FUCKING WORKS.
+  }).catch(err => {
+    console.error(err);
+  })
+}

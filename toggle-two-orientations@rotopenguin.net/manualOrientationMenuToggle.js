@@ -21,6 +21,9 @@ import { QuickMenuToggle } from 'resource:///org/gnome/shell/ui/quickSettings.js
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as Rotator from './rotator.js'
 
+import { DisplayConfigState } from './displayConfigState.js'
+
+
 export const ManualOrientationMenuToggle = GObject.registerClass(
 class ManualOrientationMenuToggle extends QuickMenuToggle {
     constructor(ext) {
@@ -32,58 +35,11 @@ class ManualOrientationMenuToggle extends QuickMenuToggle {
       });
 
       this.menu.setHeader('object-rotate-left-symbolic', 'Screen Rotate');
-/*
-      this._section = new PopupMenu.PopupMenuSection();
-      this.menu.addMenuItem(this._section);
 
-      this.landscapeItem = new PopupMenu.PopupMenuItem('Landscape', {
-        reactive: true,
-        can_focus: true,
-      });
-
-      this.portraitLeftItem = new PopupMenu.PopupMenuItem('Portrait Left', {
-        reactive: true,
-        can_focus: true,
-      });
-
-      this.landscapeFlipItem = new PopupMenu.PopupMenuItem('Landscape Flipped', {
-        reactive: true,
-        can_focus: true,
-      });
-
-      this.portraitRightItem = new PopupMenu.PopupMenuItem('Portrait Right', {
-        reactive: true,
-        can_focus: true,
-      });
-
-      this.landscapeItem.connect('activate', () => {
-        this._onItemActivate(this.landscapeItem);
-        ext.rotate_to('normal');
-      });
-      this.portraitLeftItem.connect('activate', () => {
-        this._onItemActivate(this.portraitLeftItem);
-        ext.rotate_to('left-up');
-      });
-      this.landscapeFlipItem.connect('activate', () => {
-        this._onItemActivate(this.landscapeFlipItem);
-        ext.rotate_to('bottom-up');
-      });
-      this.portraitRightItem.connect('activate', () => {
-        this._onItemActivate(this.portraitRightItem);
-        ext.rotate_to('right-up');
-      });
-
-      this._section.addMenuItem(this.landscapeItem);
-      this._section.addMenuItem(this.portraitLeftItem);
-      this._section.addMenuItem(this.landscapeFlipItem);
-      this._section.addMenuItem(this.portraitRightItem);
-
-      this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-      this.menu.addSettingsAction('Extension Settings',
-            'com.mattjakeman.ExtensionManager.desktop');
-*/
       this.connect('clicked', () => {
-        if (this.checked === true) {
+       // let transform = DisplayConfigState.builtin_monitor.transform;
+        console.log("Orientation is: ", transform);
+        if ( this.checked === true ) {  // transform !=0
             Rotator.rotate_to(0); //would love to have a functional prefs.js telling this what to do! 
         } else {
             Rotator.rotate_to(3);
@@ -92,13 +48,16 @@ class ManualOrientationMenuToggle extends QuickMenuToggle {
     }
 
     _onItemActivate(item) {
-      /*
-      this.landscapeItem.setOrnament(PopupMenu.Ornament.HIDDEN);
-      this.portraitLeftItem.setOrnament(PopupMenu.Ornament.HIDDEN);
-      this.landscapeFlipItem.setOrnament(PopupMenu.Ornament.HIDDEN);
-      this.portraitRightItem.setOrnament(PopupMenu.Ornament.HIDDEN);
-*/
       item.setOrnament(PopupMenu.Ornament.CHECK);
     }
-});
+
+    /*
+    _sync() {
+      let xform = Rotator.whats_our_current_transform();
+      this.checked = !xform;
+      console.log("Orientation _sync is:", xform);
+      
+    }
+      */
+}); 
 
