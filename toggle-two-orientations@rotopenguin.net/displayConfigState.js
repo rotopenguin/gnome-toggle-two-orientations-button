@@ -106,12 +106,9 @@ export class DisplayConfigState {
     });
 
     if ('layout-mode' in this.properties) {
-    //  console.log("Orientation properties[layout-mode] is:", properties['layout-mode']);
       properties['layout-mode'] = new GLib.Variant('b', this.properties['layout-mode']);
     }
 
     return new GLib.Variant('(uua(iiduba(ssa{sv}))a{sv})', packing);
   }
-
-  
 }

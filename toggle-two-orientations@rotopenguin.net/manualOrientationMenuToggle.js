@@ -21,9 +21,6 @@ import { QuickMenuToggle } from 'resource:///org/gnome/shell/ui/quickSettings.js
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as Rotator from './rotator.js'
 
-import { DisplayConfigState } from './displayConfigState.js'
-
-
 export const ManualOrientationMenuToggle = GObject.registerClass(
 class ManualOrientationMenuToggle extends QuickMenuToggle {
     constructor(ext) {
@@ -37,9 +34,9 @@ class ManualOrientationMenuToggle extends QuickMenuToggle {
       this.menu.setHeader('object-rotate-left-symbolic', 'Screen Rotate');
 
       this.connect('clicked', () => {
-       // let transform = DisplayConfigState.builtin_monitor.transform;
-        console.log("Orientation is: ", transform);
-        if ( this.checked === true ) {  // transform !=0
+        const transform = Rotator.whats_our_current_transform();
+        console.log("Orientation here, in MenuToggle. I think the orientation is:", transform);
+        if (this.checked === true) {
             Rotator.rotate_to(0); //would love to have a functional prefs.js telling this what to do! 
         } else {
             Rotator.rotate_to(3);
@@ -50,14 +47,5 @@ class ManualOrientationMenuToggle extends QuickMenuToggle {
     _onItemActivate(item) {
       item.setOrnament(PopupMenu.Ornament.CHECK);
     }
-
-    /*
-    _sync() {
-      let xform = Rotator.whats_our_current_transform();
-      this.checked = !xform;
-      console.log("Orientation _sync is:", xform);
-      
-    }
-      */
-}); 
+});
 

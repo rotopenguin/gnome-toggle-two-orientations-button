@@ -76,6 +76,7 @@ export function rotate_to(transform) {
       target_monitor = state.monitors[0]
     }
     let logical_monitor = state.get_logical_monitor_for(target_monitor.connector);
+    console.log("Orientation here, in rotate_to. I think transform is ", logical_monitor.transform);
     logical_monitor.transform = transform;
     let variant = state.pack_to_apply(this.Methods['temporary']);
     call_dbus_method('ApplyMonitorsConfig', null, variant);
@@ -91,8 +92,9 @@ export function whats_our_current_transform() {
       target_monitor = state.monitors[0]
     }
     let logical_monitor = state.get_logical_monitor_for(target_monitor.connector);
-    return logical_monitor.transform; //HAHA DOES NOT FUCKING WORK. NOTHING EVER FUCKING WORKS.
+    console.log("Console here, in whats_our_current_transform. Christ, is this value turning to undefined as I return it?", logical_monitor.transform);
+    return logical_monitor.transform;
   }).catch(err => {
     console.error(err);
   })
-}
+} 
