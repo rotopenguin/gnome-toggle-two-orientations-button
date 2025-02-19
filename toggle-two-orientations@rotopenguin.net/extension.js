@@ -15,12 +15,37 @@
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
-import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 
-export default class PlainExampleExtension extends Extension {
+import Gio from 'gi://Gio';
+//import St from 'gi://St';
+
+import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
+//import GObject from 'gi://GObject';
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+
+import { ManualOrientationIndicator } from './manualOrientationIndicator.js';
+import * as Rotator from './rotator.js'
+
+export default class ToggleTwoOrientationsExtension extends Extension {
     enable() {
+            this.flipIndicator = new ManualOrientationIndicator(this);
+            Main.panel.statusArea.quickSettings.addExternalIndicator(this.flipIndicator);
+        //this._settings = this.getSettings(); 
     }
 
     disable() {
+
+        if (this.flipIndicator !== null && this.flipIndicator !== undefined) {
+            this.flipIndicator.destroy();
+            this.flipIndicator = null;
+        }
+        console.log("Orientation A was ", this._orientation_a, " and Orientation B was ", this._orientation_b);
     }
+
+   // get _orientation_a() {this._settings.get_boolean("orientation-a")}
+   // get _orientation_b() {this._settings.get_boolean("orientation-b")}
+
+
 }
+
+

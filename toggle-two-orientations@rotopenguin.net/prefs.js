@@ -16,6 +16,74 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
+//shamelessly stolen from Weather O'Clock's prefs
+
+"use strict";
+
+import Gtk from "gi://Gtk";
+import Gio from "gi://Gio";
+import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js";
+
+
+export default class MyPreferences extends ExtensionPreferences {
+  fillPreferencesWindow(window) {
+    window._settings = this.getSettings();
+    window.set_default_size(360, 200);
+
+    const builder = new Gtk.Builder();
+    builder.add_from_file(`${this.path}/prefs dialog.ui`);
+
+    const weatherAfterClock = builder.get_object("WeatherAfterClock");
+    weatherAfterClock.set_active(window._settings.get_boolean("weather-after-clock"));
+
+    window._settings.bind(
+      "weather-after-clock",
+      weatherAfterClock,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    const page = builder.get_object("MainWidget");
+    window.add(page);
+  }
+
+}
+
+
+
+/* //ugh I give up
+  getPreferencesWidget() {
+    const builder = new Gtk.Builder();
+    builder.add_from_file(`${this.path}/prefs dialog.ui`);
+    const page = builder.get_object("MainPage");
+    page._settings=this.getSettings();
+
+    const orientation_a = builder.get_object("orientation-a");
+    orientation_a.set_active(page._settings.get_boolean("orientation-a"));
+    page._settings.bind(
+      "orientation-a",
+      orientation_a,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    const orientation_b = builder.get_object("orientation-b");
+    orientation_b.set_active(page._settings.get_boolean("orientation-b"));
+    page._settings.bind(
+      "orientation-b",
+      orientation_b,
+      "active",
+      Gio.SettingsBindFlags.DEFAULT,
+    );
+
+    console.log("Orientation prefs Page is ", page);
+    return page;
+  }
+}
+*/
+
+
+/*
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
 
@@ -40,5 +108,6 @@ export default class MyPreferences extends ExtensionPreferences {
     getPreferencesWidget() {
         return new MyPreferencesWidget();
     }
-}
+} 
 
+*/
