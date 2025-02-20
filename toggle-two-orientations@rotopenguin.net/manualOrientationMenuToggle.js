@@ -1,5 +1,5 @@
 /* manualOrientationMenuToggle.js
-* Copyright (C) 2024 shyzus
+* Copyright (C) 2024 shyzus, 2025 rotopenguin
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 import GObject from 'gi://GObject';
 
 import { QuickMenuToggle } from 'resource:///org/gnome/shell/ui/quickSettings.js';
-import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+//import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as Rotator from './rotator.js'
 
 export const ManualOrientationMenuToggle = GObject.registerClass(
@@ -32,11 +32,12 @@ class ManualOrientationMenuToggle extends QuickMenuToggle {
       });
 
       this.menu.setHeader('object-rotate-left-symbolic', 'Screen Rotate');
+
       // Anything that involves "fetching the display info from dbus" is inside a Promise.
       // A promise is a block that will evaluate in the far future, so we cannot learn any value from it. 
       // As such, you cannot ask "what is the current rotation state" and get an answer.
       // So instead, I'm punting "pick one of these please" to the rotator function,
-      // from there it can read the display state (it has t o anyway), pick a new rotation, and apply.
+      // from there it can read the display state (it has to anyway), pick a new rotation, and apply.
       this.connect('clicked', () => {
        Rotator.rotate_to_either(0,3);
       });

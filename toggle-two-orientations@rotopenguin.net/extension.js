@@ -1,4 +1,5 @@
 /* extension.js
+ * Copyright 2025 Rotopenguin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,15 +17,13 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-import Gio from 'gi://Gio';
-//import St from 'gi://St';
+//import Gio from 'gi://Gio';
 
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
-//import GObject from 'gi://GObject';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { ManualOrientationIndicator } from './manualOrientationIndicator.js';
-import * as Rotator from './rotator.js'
+//import * as Rotator from './rotator.js'
 
 export default class ToggleTwoOrientationsExtension extends Extension {
     enable() {

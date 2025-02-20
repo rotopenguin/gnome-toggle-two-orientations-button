@@ -23,7 +23,6 @@ export class LogicalMonitor {
     this.y = unpacked[1].unpack();
     this.scale = unpacked[2].unpack();
     this.transform = unpacked[3].unpack();
-    console.log("Orientation here. In LogicalMonitor, I think the transform is", this.transform);
     this.primary = unpacked[4].unpack();
     // [ [connector, vendor, product, serial]* ]
     this.monitors = unpacked[5].deep_unpack();
