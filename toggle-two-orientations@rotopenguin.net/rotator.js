@@ -85,16 +85,26 @@ export function rotate_to(transform) {
   })
 }
 
-export function whats_our_current_transform() {
+export function rotate_to_either(orientation_a, orientation_b) {
   this.get_state().then(state => {
     let target_monitor = state.builtin_monitor;
     if (target_monitor === undefined) {
       target_monitor = state.monitors[0]
     }
     let logical_monitor = state.get_logical_monitor_for(target_monitor.connector);
-    console.log("Console here, in whats_our_current_transform. Christ, is this value turning to undefined as I return it?", logical_monitor.transform);
-    return logical_monitor.transform;
+    const current_transform = logical_monitor.transform;
+    let target_transform;
+    console.log("Orientation here, in rotate_to_either. I think transform is ", current_transform);
+    if (current_transform == orientation_a) {
+      target_transform=orientation_b;
+    } else {
+      target_transform=orientation_a;
+    }
+
+    logical_monitor.transform = target_transform;
+    let variant = state.pack_to_apply(this.Methods['temporary']);
+    call_dbus_method('ApplyMonitorsConfig', null, variant);
   }).catch(err => {
     console.error(err);
   })
-} 
+}

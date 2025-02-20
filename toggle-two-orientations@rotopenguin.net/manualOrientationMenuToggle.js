@@ -28,19 +28,19 @@ class ManualOrientationMenuToggle extends QuickMenuToggle {
         title: 'Rotate',
         iconName: 'object-rotate-left-symbolic',
         menuEnabled: false,
-        toggleMode: true,
+        toggleMode: false,
       });
 
       this.menu.setHeader('object-rotate-left-symbolic', 'Screen Rotate');
-
+ //anything that involves "fetching the display info from dbus" is inside a Promise. A promise is a block that will evaluate in the far future, so we cannot learn any value from it. 
       this.connect('clicked', () => {
-        const transform = Rotator.whats_our_current_transform();
-        console.log("Orientation here, in MenuToggle. I think the orientation is:", transform);
+       Rotator.rotate_to_either(0,3);
+       /*
         if (this.checked === true) {
             Rotator.rotate_to(0); //would love to have a functional prefs.js telling this what to do! 
         } else {
             Rotator.rotate_to(3);
-        }
+        } */
       });
     }
 
