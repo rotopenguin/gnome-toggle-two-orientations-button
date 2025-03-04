@@ -27,23 +27,27 @@ import { ExtensionPreferences } from "resource:///org/gnome/Shell/Extensions/js/
 
 export default class MyPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
+    console.log("Orientation: Did we get to prefs.js yet??? "); 
+    //is the problem that the ui won't load without a <title> tag on the AdwPreferencesPage (or AdwPreferencesGroup)? None of this shit is documented it's all stupid.
     window._settings = this.getSettings();
-    window.set_default_size(360, 200);
+    window.set_default_size(360, 300);
 
     const builder = new Gtk.Builder();
+    
     builder.add_from_file(`${this.path}/prefs dialog.ui`);
+   
 
-    const weatherAfterClock = builder.get_object("WeatherAfterClock");
-    weatherAfterClock.set_active(window._settings.get_boolean("weather-after-clock"));
+   /* const toggleA = builder.get_object("orientation-a");
+    toggleA.set_active(window._settings.get_boolean("orientation-a"));
 
     window._settings.bind(
-      "weather-after-clock",
-      weatherAfterClock,
+      "orientation-a",
+      toggleA,
       "active",
       Gio.SettingsBindFlags.DEFAULT,
     );
-
-    const page = builder.get_object("MainWidget");
+*/
+    const page = builder.get_object("MainPage");
     window.add(page);
   }
 
