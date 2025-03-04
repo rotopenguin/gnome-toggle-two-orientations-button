@@ -6,9 +6,9 @@
       <default>false</default>
       <description>Flip the "normal" orientation the other way.</description>
     </key>
-<key type="b" name="orientation-b">
+    <key type="b" name="orientation-b">
       <default>false</default>
       <description>Flip "landscape" the other way round.</description>
     </key>
-</schema>
+  </schema>
 </schemalist>
