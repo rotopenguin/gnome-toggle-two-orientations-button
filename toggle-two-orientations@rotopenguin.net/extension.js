@@ -17,7 +17,7 @@
  * SPDX-License-Identifier: GPL-2.0-or-later
  */
 
-//import Gio from 'gi://Gio';
+import Gio from 'gi://Gio';
 
 import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
@@ -29,7 +29,9 @@ export default class ToggleTwoOrientationsExtension extends Extension {
     enable() {
             this.flipIndicator = new ManualOrientationIndicator(this);
             Main.panel.statusArea.quickSettings.addExternalIndicator(this.flipIndicator);
-        //this._settings = this.getSettings(); 
+            this._settings = this.getSettings("org.gnome.shell.extensions.toggle-two-orientations"); 
+            console.log("Orientation: Is getsettings real at all? ",this._settings); // it is a Gio_Settings{}. it still doesn't work.
+            console.log("Orientation: orientation-a is", this._settings.get_boolean("orientation-a"));
     }
 
     disable() {
@@ -38,11 +40,16 @@ export default class ToggleTwoOrientationsExtension extends Extension {
             this.flipIndicator.destroy();
             this.flipIndicator = null;
         }
-        console.log("Orientation A was ", this._orientation_a, " and Orientation B was ", this._orientation_b);
+        //this._settings=null;
+        console.log("Orientation A was ", this._orientation_a, " and Orientation B was ", this.fucking_b);
     }
 
-   // get _orientation_a() {this._settings.get_boolean("orientation-a")}
-   // get _orientation_b() {this._settings.get_boolean("orientation-b")}
+    get _orientation_a() {this.getSettings("org.gnome.shell.extensions.toggle-two-orientations").get_boolean("orientation-a")}
+  //  get _orientation_b() {this.getSettings("org.gnome.shell.extensions.toggle-two-orientations").get_boolean("orientation-b")}
+    get _orientation_b() {this._settings.get_boolean("orientation-b")}
+    get fucking_b() {this._settings.get_boolean("orientation-b")}
+
+    //get _settings() { this.getSettings("org.gnome.shell.extensions.toggle-two-orientations")}
 
 
 }
