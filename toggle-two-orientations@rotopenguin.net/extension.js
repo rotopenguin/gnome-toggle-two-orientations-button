@@ -23,14 +23,15 @@ import {Extension} from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 
 import { ManualOrientationIndicator } from './manualOrientationIndicator.js';
-//import * as Rotator from './rotator.js'
+export let all_the_settings;
 
+//import * as Rotator from './rotator.js'
 export default class ToggleTwoOrientationsExtension extends Extension {
     enable() {
             this.flipIndicator = new ManualOrientationIndicator(this);
             Main.panel.statusArea.quickSettings.addExternalIndicator(this.flipIndicator);
-            this._settings = this.getSettings("org.gnome.shell.extensions.toggle-two-orientations");  //afaict, this is creating a real Gio_Settings{}
-            console.log("Orientation: orientation-a is", this._settings.get_boolean("orientation-a"));
+            all_the_settings = this.getSettings("org.gnome.shell.extensions.toggle-two-orientations");  //afaict, this is creating a real Gio_Settings{}
+            //this._settings.get_boolean("orientation-a"));
         
     }
 

@@ -18,6 +18,8 @@
 import Gio from 'gi://Gio';
 
 import { DisplayConfigState } from './displayConfigState.js'
+import { all_the_settings } from './extension.js';
+export let orientation_a,orientation_b;
 
 const connection = Gio.DBus.session;
 
@@ -86,6 +88,9 @@ export function rotate_to(transform) {
 }
 
 export function rotate_to_either(orientation_a, orientation_b) {
+  const oA= all_the_settings.get_boolean("orientation-a");
+  const oB= all_the_settings.get_boolean("orientation-b");
+  console.log("Orientation: rotator sees ",oA, oB);
   this.get_state().then(state => {
     let target_monitor = state.builtin_monitor;
     if (target_monitor === undefined) {
