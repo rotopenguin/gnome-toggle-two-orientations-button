@@ -19,7 +19,7 @@
         </child>
         <child>
           <object class="AdwActionRow">
-            <property name="title">Flip "landscape" the other way round.</property>
+            <property name="title">Flip "orthogonal to 👆that guy" the other way round.</property>
             <child>
               <object class="GtkSwitch" id="orientation-b">
                 <property name="valign">center</property>
