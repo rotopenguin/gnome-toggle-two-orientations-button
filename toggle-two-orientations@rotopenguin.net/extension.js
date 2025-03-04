@@ -29,9 +29,9 @@ export default class ToggleTwoOrientationsExtension extends Extension {
     enable() {
             this.flipIndicator = new ManualOrientationIndicator(this);
             Main.panel.statusArea.quickSettings.addExternalIndicator(this.flipIndicator);
-            this._settings = this.getSettings("org.gnome.shell.extensions.toggle-two-orientations"); 
-            console.log("Orientation: Is getsettings real at all? ",this._settings); // it is a Gio_Settings{}. it still doesn't work.
+            this._settings = this.getSettings("org.gnome.shell.extensions.toggle-two-orientations");  //afaict, this is creating a real Gio_Settings{}
             console.log("Orientation: orientation-a is", this._settings.get_boolean("orientation-a"));
+        
     }
 
     disable() {
@@ -40,16 +40,9 @@ export default class ToggleTwoOrientationsExtension extends Extension {
             this.flipIndicator.destroy();
             this.flipIndicator = null;
         }
-        //this._settings=null;
-        console.log("Orientation A was ", this._orientation_a, " and Orientation B was ", this.fucking_b);
+        //this._settings=null; //Apparently, _settings was destroyed before disable was called. I guess. 
     }
 
-    get _orientation_a() {this.getSettings("org.gnome.shell.extensions.toggle-two-orientations").get_boolean("orientation-a")}
-  //  get _orientation_b() {this.getSettings("org.gnome.shell.extensions.toggle-two-orientations").get_boolean("orientation-b")}
-    get _orientation_b() {this._settings.get_boolean("orientation-b")}
-    get fucking_b() {this._settings.get_boolean("orientation-b")}
-
-    //get _settings() { this.getSettings("org.gnome.shell.extensions.toggle-two-orientations")}
 
 
 }
