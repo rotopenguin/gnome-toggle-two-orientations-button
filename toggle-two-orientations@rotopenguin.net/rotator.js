@@ -77,7 +77,6 @@ export function rotate_to(transform) {
       target_monitor = state.monitors[0]
     }
     let logical_monitor = state.get_logical_monitor_for(target_monitor.connector);
-    console.log("Orientation here, in rotate_to. I think transform is ", logical_monitor.transform);
     logical_monitor.transform = transform;
     let variant = state.pack_to_apply(this.Methods['temporary']);
     call_dbus_method('ApplyMonitorsConfig', null, variant);
@@ -85,8 +84,6 @@ export function rotate_to(transform) {
     console.error(err);
   })
 }
-
-
 
 
 export function rotate_to_either(orientation_a, orientation_b) {
@@ -98,7 +95,6 @@ export function rotate_to_either(orientation_a, orientation_b) {
     let logical_monitor = state.get_logical_monitor_for(target_monitor.connector);
     const current_transform = logical_monitor.transform;
     let target_transform;
-    console.log("Orientation here, in rotate_to_either. I think transform is ", current_transform);
     if (current_transform == orientation_a) {
       target_transform=orientation_b;
     } else {
