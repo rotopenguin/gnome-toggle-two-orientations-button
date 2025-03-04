@@ -20,6 +20,7 @@ import GObject from 'gi://GObject';
 import { QuickMenuToggle } from 'resource:///org/gnome/shell/ui/quickSettings.js';
 //import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import * as Rotator from './rotator.js'
+import { all_the_settings } from './extension.js';
 
 export const ManualOrientationMenuToggle = GObject.registerClass(
 class ManualOrientationMenuToggle extends QuickMenuToggle {
@@ -39,7 +40,18 @@ class ManualOrientationMenuToggle extends QuickMenuToggle {
       // So instead, I'm punting "pick one of these please" to the rotator function,
       // from there it can read the display state (it has to anyway), pick a new rotation, and apply.
       this.connect('clicked', () => {
-       Rotator.rotate_to_either(0,3);
+
+       //Rotator.rotate_toggle();
+
+      const oA_bool= all_the_settings.get_boolean("orientation-a");
+      const oB_bool= all_the_settings.get_boolean("orientation-b");
+      let oA_val, oB_val;
+      if (oA_bool) {oA_val = 0}
+        else {oA_val = 2};
+      if (oB_bool) {oB_val = 1}
+        else {oB_val = 3};
+      Rotator.rotate_to_either(oA_val,oB_val); 
+       
       });
     }
 

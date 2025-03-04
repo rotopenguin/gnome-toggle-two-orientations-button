@@ -19,7 +19,6 @@ import Gio from 'gi://Gio';
 
 import { DisplayConfigState } from './displayConfigState.js'
 import { all_the_settings } from './extension.js';
-export let orientation_a,orientation_b;
 
 const connection = Gio.DBus.session;
 
@@ -87,10 +86,10 @@ export function rotate_to(transform) {
   })
 }
 
+
+
+
 export function rotate_to_either(orientation_a, orientation_b) {
-  const oA= all_the_settings.get_boolean("orientation-a");
-  const oB= all_the_settings.get_boolean("orientation-b");
-  console.log("Orientation: rotator sees ",oA, oB);
   this.get_state().then(state => {
     let target_monitor = state.builtin_monitor;
     if (target_monitor === undefined) {
@@ -113,3 +112,17 @@ export function rotate_to_either(orientation_a, orientation_b) {
     console.error(err);
   })
 }
+
+/*
+export function rotate_toggle() {
+  const oA_bool= all_the_settings.get_boolean("orientation-a");
+  const oB_bool= all_the_settings.get_boolean("orientation-b");
+  let oA_val, oB_val;
+  if (oA_bool) {oA_val = 0}
+    else {oA_val = 2};
+  if (oB_bool) {oB_val = 1}
+    else {oB_val = 3};
+  console.log("Orientation: going to rotate to either ", oA_val, oB_val);
+  rotate_to_either(oA_val,oB_val); //I cannot call you from inside the same file, because of stupid fucking reasons. 
+}
+*/
