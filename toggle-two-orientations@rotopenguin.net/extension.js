@@ -31,17 +31,13 @@ export default class ToggleTwoOrientationsExtension extends Extension {
             this.flipIndicator = new ManualOrientationIndicator(this);
             Main.panel.statusArea.quickSettings.addExternalIndicator(this.flipIndicator);
             all_the_settings = this.getSettings("org.gnome.shell.extensions.toggle-two-orientations");  //afaict, this is creating a real Gio_Settings{}
-            //this._settings.get_boolean("orientation-a"));
         
     }
 
     disable() {
-
-        if (this.flipIndicator !== null && this.flipIndicator !== undefined) {
-            this.flipIndicator.destroy();
-            this.flipIndicator = null;
-        }
-        //this._settings=null; //Apparently, _settings was destroyed before disable was called. I guess. 
+        this.flipIndicator?.destroy();
+        this.flipIndicator = null;
+        all_the_settings = null;
     }
 
 

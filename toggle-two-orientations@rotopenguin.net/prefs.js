@@ -32,7 +32,7 @@ export default class MyPreferences extends ExtensionPreferences {
 
     const builder = new Gtk.Builder();
     
-    builder.add_from_file(`${this.path}/prefs dialog.ui`);
+    builder.add_from_file(`${this.path}/prefs.ui`);
    
 
    const toggleA = builder.get_object("orientation-a");
