@@ -70,21 +70,6 @@ export function get_state() {
   })
 }
 
-export function rotate_to(transform) {
-  this.get_state().then(state => {
-    let target_monitor = state.builtin_monitor;
-    if (target_monitor === undefined) {
-      target_monitor = state.monitors[0]
-    }
-    let logical_monitor = state.get_logical_monitor_for(target_monitor.connector);
-    logical_monitor.transform = transform;
-    let variant = state.pack_to_apply(this.Methods['temporary']);
-    call_dbus_method('ApplyMonitorsConfig', null, variant);
-  }).catch(err => {
-    console.error(err);
-  })
-}
-
 
 export function rotate_to_either(orientation_a, orientation_b) {
   this.get_state().then(state => {
@@ -108,17 +93,3 @@ export function rotate_to_either(orientation_a, orientation_b) {
     console.error(err);
   })
 }
-
-/*
-export function rotate_toggle() {
-  const oA_bool= all_the_settings.get_boolean("orientation-a");
-  const oB_bool= all_the_settings.get_boolean("orientation-b");
-  let oA_val, oB_val;
-  if (oA_bool) {oA_val = 0}
-    else {oA_val = 2};
-  if (oB_bool) {oB_val = 1}
-    else {oB_val = 3};
-  console.log("Orientation: going to rotate to either ", oA_val, oB_val);
-  rotate_to_either(oA_val,oB_val); //I cannot call you from inside the same file, because of stupid fucking reasons. 
-}
-*/
